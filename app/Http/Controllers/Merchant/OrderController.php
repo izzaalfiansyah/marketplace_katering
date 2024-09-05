@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     function index()
     {
-        $orders = Order::where('merchant_id', Auth::user()->merchant->id)->whereNotNull('schedule')->paginate(10);
+        $orders = Order::where('merchant_id', Auth::user()->merchant->id)->whereNotNull('schedule')->paginate(10)->withQueryString();
 
         return view('merchant.order.index', compact('orders'));
     }

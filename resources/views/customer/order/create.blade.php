@@ -115,7 +115,7 @@
     @endif
     <div class="row">
         @forelse ($merchants as $merchant)
-            <div class="col-xl-6">
+            <div class="col-xl-6 mb-5">
                 <div class="card bg-body">
                     <div class="card-body">
                         <h2 class="mb-3">{{ $merchant->name }}</h2>
@@ -139,5 +139,11 @@
                 </div>
             </div>
         @endforelse
+    </div>
+
+    <div class="card bg-body mt-10">
+        <div class="card-body">
+            {{ $merchants->links() }}
+        </div>
     </div>
 @endsection

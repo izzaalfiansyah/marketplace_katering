@@ -42,4 +42,10 @@
             </div>
         </div>
     </div>
+
+    <div class="card bg-body mt-10">
+        <div class="card-body">
+            {{ $orders->links() }}
+        </div>
+    </div>
 @endsection

@@ -78,6 +78,12 @@
         @endforelse
     </div>
 
+    <div class="card bg-body mt-10">
+        <div class="card-body">
+            {{ $menus->links() }}
+        </div>
+    </div>
+
     <form action="{{ url('/menu') }}" method="post" id="form-create" enctype="multipart/form-data">
         @method('POST')
         @csrf

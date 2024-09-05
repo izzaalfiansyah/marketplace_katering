@@ -19,7 +19,7 @@ class OrderController extends Controller
 {
     function index()
     {
-        $orders = Order::where('user_id', Auth::id())->whereNotNull('schedule')->paginate(10);
+        $orders = Order::where('user_id', Auth::id())->whereNotNull('schedule')->paginate(10)->withQueryString();
 
         return view('customer.order.index', compact('orders'));
     }
@@ -65,7 +65,7 @@ class OrderController extends Controller
             $builder = $builder->where('users.district_id', $req->district_id);
         }
 
-        $merchants = $builder->paginate(20);
+        $merchants = $builder->paginate(10)->withQueryString();
 
         return view('customer.order.create', compact('merchants', 'provinces', 'regencies', 'districts', 'categories'));
     }

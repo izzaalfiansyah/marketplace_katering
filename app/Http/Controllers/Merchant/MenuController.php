@@ -27,7 +27,7 @@ class MenuController extends Controller
             $builder = $builder->where('category_id', $req->category);
         }
 
-        $menus = $builder->paginate(10);
+        $menus = $builder->paginate(10)->withQueryString();
         $categories = MenuCategory::all();
 
         return view('merchant.menu.index', compact('menus', 'categories'));
