@@ -1,1 +1,1 @@
-@extends('layouts.customer')
+@extends('layouts.home')

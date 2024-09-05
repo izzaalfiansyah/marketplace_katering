@@ -1,16 +1,4 @@
 <!DOCTYPE html>
-<!--
-Author: Keenthemes
-Product Name: Oswald
-Product Version: 1.0.0
-Upgrade to Pro: https://keenthemes.com/products/oswald-html-pro
-Website: http://www.keenthemes.com
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
--->
 <html lang="en">
 <!--begin::Head-->
 
@@ -202,7 +190,36 @@ License: For each use you must have a valid license purchased only from above li
                                             'path' => '/dashboard',
                                             'title' => 'Beranda',
                                         ],
+                                        [
+                                            'path' => '/my-order',
+                                            'title' => 'Pesanan Saya',
+                                        ],
+                                        [
+                                            'path' => '/profile',
+                                            'title' => 'Profil',
+                                        ],
                                     ];
+
+                                    if (!!Auth::user()->merchant) {
+                                        $menus = [
+                                            [
+                                                'path' => '/dashboard',
+                                                'title' => 'Beranda',
+                                            ],
+                                            [
+                                                'path' => '/menu',
+                                                'title' => 'Daftar Menu',
+                                            ],
+                                            [
+                                                'path' => '/order',
+                                                'title' => 'Daftar Orderan',
+                                            ],
+                                            [
+                                                'path' => '/profile',
+                                                'title' => 'Profil',
+                                            ],
+                                        ];
+                                    }
                                 @endphp
                                 @foreach ($menus as $menu)
                                     <div class="menu-item menu-here-bg menu-lg-down-accordion me-0 me-lg-2">

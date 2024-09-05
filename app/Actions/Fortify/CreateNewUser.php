@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Merchant;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -30,12 +31,21 @@ class CreateNewUser implements CreatesNewUsers
             ],
             'phone' => 'required|string',
             'password' => $this->passwordRules(),
+            'role' => 'nullable|in:customer,merchant',
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        if ($input['role'] == 'merchant') {
+            Merchant::create([
+                'user_id' => $user->id,
+            ]);
+        }
+
+        return $user;
     }
 }

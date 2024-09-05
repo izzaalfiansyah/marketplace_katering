@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('merchants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('province_id');
-            $table->foreignId('regency_id');
-            $table->foreignId('district_id');
             $table->text('description')->nullable();
+            $table->foreignId('province_id')->nullable();
+            $table->foreignId('regency_id')->nullable();
+            $table->foreignId('district_id')->nullable();
             $table->timestamps();
         });
     }

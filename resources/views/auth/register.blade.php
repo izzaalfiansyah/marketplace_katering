@@ -75,6 +75,18 @@
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->
+        <div class="fv-row mb-7 un-hidden">
+            <label class="form-label fw-bold text-dark fs-6">Sebagai</label>
+            <input class="form-control form-control-lg form-control-solid" placeholder="" name="role"
+                value="{{ request()->get('role') }}" autocomplete="off" />
+        </div>
+        @error('role')
+            <x-error-field>
+                {{ $errors->first('role') }}
+            </x-error-field>
+        @enderror
+        <!--end::Input group-->
+        <!--begin::Input group-->
         <div class="fv-row mb-10">
             <label class="form-check form-check-custom form-check-solid form-check-inline">
                 <input class="form-check-input" type="checkbox" name="toc" value="1" checked disabled />
@@ -86,7 +98,7 @@
         <!--begin::Actions-->
         <div class="text-center">
             <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
-                Daftar
+                Daftar Sekarang
             </button>
         </div>
         <!--end::Actions-->

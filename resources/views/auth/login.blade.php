@@ -11,7 +11,8 @@
             <!--end::Title-->
             <!--begin::Link-->
             <div class="text-gray-400 fw-semibold fs-4">Belum punya akun?
-                <a href="{{ url('/register') }}" class="link-primary fw-bold">Buat di
+                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal-register"
+                    class="link-primary fw-bold">Buat di
                     sini</a>
             </div>
             <!--end::Link-->
@@ -61,4 +62,11 @@
         </div>
         <!--end::Actions-->
     </form>
+
+    <x-modal id="modal-register" header="Daftar Sebagai">
+        <a href="{{ url('/register?role=merchant') }}" class="btn btn-light-primary fw-bold w-100 mb-8">
+            Merchant (Usaha Katering)</a>
+        <a href="{{ url('/register') }}" class="btn btn-light-primary fw-bold w-100 mb-8">
+            Costumer</a>
+    </x-modal>
 @endsection

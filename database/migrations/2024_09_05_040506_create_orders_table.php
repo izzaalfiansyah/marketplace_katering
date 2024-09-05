@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
+            $table->foreignId('merchant_id');
             $table->timestamp('schedule');
             $table->enum('status', ['pending', 'process', 'completed', 'canceled'])->default('pending');
             $table->text('reason')->nullable();
