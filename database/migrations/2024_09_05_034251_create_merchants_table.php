@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('regency_id');
             $table->foreignId('district_id');
             $table->text('address')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
