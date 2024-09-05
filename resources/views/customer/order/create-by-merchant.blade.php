@@ -47,17 +47,13 @@
                                     </tr>
                                 @endforelse
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th colspan="2">Total</th>
-                                    <th colspan="2" id="total">Rp. 0</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
 
-                    <button type="submit" data-bs-toggle="modal" data-bs-target="#buat-pesanan"
-                        class="btn btn-primary">Buat Pesanan</button>
+                    @if (count($order->detail) > 0)
+                        <button type="submit" data-bs-toggle="modal" data-bs-target="#buat-pesanan"
+                            class="btn btn-primary">Buat Pesanan</button>
+                    @endif
                 </div>
             </div>
         </div>

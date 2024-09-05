@@ -16,6 +16,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/my-order/create/merchant/{merchantId}', [OrderController::class, 'createByMerchant']);
     Route::post('/my-order/create/{orderId}', [OrderController::class, 'addDetails']);
     Route::delete('/my-order/destroy/{orderId}/{detailId}', [OrderController::class, 'destroyDetails']);
+    Route::put('/my-order/{id}/cancel', [OrderController::class, 'cancelOrder']);
     Route::resource('/my-order', OrderController::class);
 
     Route::middleware(CheckIsMerchantMiddleware::class)->group(function () {

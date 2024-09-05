@@ -23,6 +23,13 @@ class OrderController extends Controller
         return view('customer.order.index', compact('orders'));
     }
 
+    function show($id)
+    {
+        $order = Order::find($id);
+
+        return view('customer.order.detail', compact('order'));
+    }
+
     function create(Request $req)
     {
         $builder = new Merchant();
@@ -87,9 +94,19 @@ class OrderController extends Controller
 
         $data['schedule'] = $req->schedule_date . ' ' . $req->schedule_time;
 
+        $detail = OrderDetail::where('order_id', $id)->get();
+
+        $total = 0;
+
+        foreach ($detail as $d) {
+            $total += $d->subtotal;
+        }
+
+        $data['total'] = $total;
+
         Order::where('id', $id)->update($data);
 
-        return redirect('/my-order')->with('success', 'Pesanan berhasil di buat. Silahkan menunggu');
+        return redirect('/my-order/' . $id)->with('success', 'Pesanan berhasil di buat. Silahkan menunggu!');
     }
 
     function addDetails(Request $req, $orderId)
@@ -113,5 +130,18 @@ class OrderController extends Controller
         OrderDetail::destroy($detailId);
 
         return redirect()->back()->with('success', 'Menu terhapus!');
+    }
+
+    function cancelOrder(Request $req, $id)
+    {
+        $data = $req->validate([
+            'reason' => 'required',
+        ]);
+
+        $data['status'] = "canceled";
+
+        Order::find($id)->update($data);
+
+        return redirect('/my-order/' . $id);
     }
 }

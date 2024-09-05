@@ -23,4 +23,14 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class);
     }
+
+    function merchant()
+    {
+        return $this->belongsTo(Merchant::class);
+    }
+
+    function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
