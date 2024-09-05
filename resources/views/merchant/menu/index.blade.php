@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="row">
-        @foreach ($menus as $menu)
+        @forelse ($menus as $menu)
             <div class="col-lg-3 col-md-4 col-6">
                 <div class="card bg-body">
                     <img src="{{ $menu->photo_url }}" alt="" class="!un-h-200px card-img" style="object-fit: cover" />
@@ -34,7 +34,13 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="col">
+                <div class="card bg-body">
+                    <div class="card-body text-center">tidak tersedia.</div>
+                </div>
+            </div>
+        @endforelse
     </div>
 
     <form action="{{ url('/menu') }}" method="post" id="form-create" enctype="multipart/form-data">

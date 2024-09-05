@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('merchant_id');
-            $table->timestamp('schedule');
-            $table->enum('status', ['pending', 'process', 'completed', 'canceled'])->default('pending');
+            $table->timestamp('schedule')->nullable();
+            $table->enum('status', ['pending', 'process', 'completed', 'canceled'])->default('pending')->nullable();
             $table->text('reason')->nullable();
-            $table->integer('total');
-            $table->integer('payment');
+            $table->integer('total')->nullable();
+            $table->integer('payment')->nullable();
             $table->timestamps();
         });
     }
