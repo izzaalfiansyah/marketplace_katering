@@ -72,6 +72,7 @@ class OrderController extends Controller
 
     function createByMerchant(Request $req, $merchantId)
     {
+        $categories = MenuCategory::all();
         $order = Order::where('merchant_id', $merchantId)->where('user_id', Auth::id())->orderBy('created_at', 'desc')->first();
 
         if ($order?->schedule) {
@@ -90,9 +91,13 @@ class OrderController extends Controller
             });
         }
 
+        if ($req->category) {
+            $builder = $builder->where('category_id', $req->category);
+        }
+
         $menus = $builder->get();
 
-        return view('customer.order.create-by-merchant', compact('menus', 'order'));
+        return view('customer.order.create-by-merchant', compact('menus', 'order', 'categories'));
     }
 
     function update(Request $req, $id)
