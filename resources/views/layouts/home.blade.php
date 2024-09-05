@@ -136,7 +136,7 @@
                                             <!--end::Avatar-->
                                             <!--begin::Username-->
                                             <div class="d-flex flex-column">
-                                                <div class="fw-bold d-flex align-items-center fs-5 un-text-truncate">
+                                                <div class="fw-bold d-flex align-items-center fs-5">
                                                     {{ Auth::user()->name }}
                                                 </div>
                                                 <a href="#"
@@ -362,6 +362,16 @@
                 title: 'Sukses!',
                 text: "{{ session('success') }}",
                 icon: 'success',
+            })
+        </script>
+    @endif
+
+    @if (session('warning'))
+        <script>
+            Swal.fire({
+                title: 'Peringatan!',
+                text: "{{ session('warning') }}",
+                icon: 'warning',
             })
         </script>
     @endif

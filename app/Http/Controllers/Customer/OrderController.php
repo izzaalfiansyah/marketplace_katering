@@ -19,7 +19,7 @@ class OrderController extends Controller
 {
     function index()
     {
-        $orders = Order::where('user_id', Auth::id())->whereNotNull('schedule')->paginate(10)->withQueryString();
+        $orders = Order::where('user_id', Auth::id())->orderBy('updated_at', 'desc')->whereNotNull('schedule')->paginate(10)->withQueryString();
 
         return view('customer.order.index', compact('orders'));
     }
@@ -75,7 +75,7 @@ class OrderController extends Controller
         $categories = MenuCategory::all();
         $order = Order::where('merchant_id', $merchantId)->where('user_id', Auth::id())->orderBy('created_at', 'desc')->first();
 
-        if ($order?->schedule) {
+        if ($order?->schedule || !$order) {
             $order = Order::create([
                 'merchant_id' => $merchantId,
                 'user_id' => Auth::id(),
@@ -96,8 +96,9 @@ class OrderController extends Controller
         }
 
         $menus = $builder->get();
+        $merchant = Merchant::find($merchantId);
 
-        return view('customer.order.create-by-merchant', compact('menus', 'order', 'categories'));
+        return view('customer.order.create-by-merchant', compact('menus', 'order', 'categories', 'merchant'));
     }
 
     function update(Request $req, $id)

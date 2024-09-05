@@ -12,6 +12,21 @@
                     <td>{{ $order->user->name }}</td>
                 </tr>
                 <tr>
+                    <td>Kontak</td>
+                    <td>:</td>
+                    <td><a href="tel:{{ $order->user->phone }}">{{ $order->user->phone }}</a></td>
+                </tr>
+                <tr>
+                    <td>Alamat Customer</td>
+                    <td>:</td>
+                    <td>
+                        {{ $order->user->address }},
+                        {{ ucwords(strtolower($order->user->district->name)) }},
+                        {{ ucwords(strtolower($order->user->regency->name)) }},
+                        {{ ucwords(strtolower($order->user->province->name)) }}
+                    </td>
+                </tr>
+                <tr>
                     <td>Jadwal Pengiriman</td>
                     <td>:</td>
                     <td>{{ $order->schedule }}</td>

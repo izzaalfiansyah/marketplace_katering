@@ -1,9 +1,25 @@
 @extends('layouts.home', [
-    'title' => 'Pilih Menu',
+    'title' => 'Pilih Menu di ' . $merchant->name,
 ]);
 
 @section('content')
     <div class="row">
+        <div class="col-xl-5 col mb-10">
+            <div class="card bg-body">
+                <div class="card-body">
+                    <h2 class="mb-3">{{ $merchant->name }}</h2>
+                    <div class="mb-10">
+                        {{ $merchant->user->address }},
+                        {{ ucwords(strtolower($merchant->user->district->name)) }},
+                        {{ ucwords(strtolower($merchant->user->regency->name)) }},
+                        {{ ucwords(strtolower($merchant->user->province->name)) }}
+                        <br>
+                        <a href="tel:{{ $merchant->user->phone }}">{{ $merchant->user->phone }}</a>
+                    </div>
+                    <p>{{ $merchant->description }}</p>
+                </div>
+            </div>
+        </div>
         <div class="col-xl-7 col mb-10">
             <div class="card bg-body">
                 <div class="card-body">

@@ -10,6 +10,10 @@ class DashboardController extends Controller
 {
     function index()
     {
+        if (!Auth::user()->province_id) {
+            return redirect('/profile')->with('warning', 'Lengkapi identitasmu terlebih dahulu!');
+        }
+
         return view('customer.index');
     }
 }

@@ -121,8 +121,10 @@
                         <h2 class="mb-3">{{ $merchant->name }}</h2>
                         <div class="mb-10">
                             <i>
-                                {{ $merchant->user->address }}, {{ $merchant->user->district->name }},
-                                {{ $merchant->user->regency->name }}, {{ $merchant->user->province->name }}
+                                {{ $merchant->user->address }},
+                                {{ ucwords(strtolower($merchant->user->district->name)) }},
+                                {{ ucwords(strtolower($merchant->user->regency->name)) }},
+                                {{ ucwords(strtolower($merchant->user->province->name)) }}
                             </i>
                         </div>
                         <p>{{ $merchant->description }}</p>
