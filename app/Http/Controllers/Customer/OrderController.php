@@ -35,6 +35,8 @@ class OrderController extends Controller
     {
         $builder = Merchant::select('merchants.*')->distinct()->leftJoin('users', 'users.id', '=', 'merchants.user_id')->leftJoin('menus', 'menus.merchant_id', '=', 'merchants.id');
 
+        $builder = $builder->whereNotNull('users.district_id');
+
         $provinces = Province::orderBy('name')->get();
         $regencies = [];
         $districts = [];
