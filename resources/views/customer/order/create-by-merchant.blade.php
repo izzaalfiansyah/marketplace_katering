@@ -36,6 +36,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $total = 0;
+                                @endphp
                                 @forelse ($order->detail as $detail)
                                     <tr>
                                         <td>{{ $detail->menu->name }} (Rp. {{ $detail->price }})</td>
@@ -57,12 +60,21 @@
                                             </form>
                                         </td>
                                     </tr>
+                                    @php
+                                        $total += $detail->subtotal;
+                                    @endphp
                                 @empty
                                     <tr>
                                         <td colspan="4" class="text-center">data tidak tersedia</td>
                                     </tr>
                                 @endforelse
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2">Total</th>
+                                    <th colspan="2">Rp. {{ number_format($total) }}</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
 
