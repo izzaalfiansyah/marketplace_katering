@@ -54,4 +54,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(Merchant::class);
     }
+
+    function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    function regency()
+    {
+        return $this->belongsTo(Regency::class);
+    }
+
+    function district()
+    {
+        return $this->belongsTo(District::class);
+    }
 }

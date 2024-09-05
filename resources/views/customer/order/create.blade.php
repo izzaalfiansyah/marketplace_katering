@@ -6,6 +6,33 @@
     <form class="card bg-body mb-10" id="form-filter">
         <div class="card-body">
             <div class="row">
+                <div class="col-xl-8 mb-7">
+                    <div class="fv-row">
+                        <label class="form-label fs-6 fw-bold text-dark">Cari</label>
+                        <input class="form-control form-control-lg form-control-solid" name="q"
+                            placeholder="Ketikkan Sesuatu" value="{{ isset($_GET['q']) ? $_GET['q'] : '' }}"
+                            onchange="{
+                            document.querySelector('#form-filter').submit();
+                        }" />
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="fv-row">
+                        <label class="form-label fs-6 fw-bold text-dark">Jenis</label>
+                        <select
+                            onchange="{
+                            document.querySelector('#form-filter').submit();
+                        }"
+                            class="form-control form-control-lg form-control-solid" name="category" required>
+                            <option value="">Semua Jenis</option>
+                            @foreach ($categories as $category)
+                                <option
+                                    {{ isset($_GET['category']) ? ($_GET['category'] == $category->id ? 'selected' : '') : '' }}
+                                    value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="col-xl-4">
                     <div class="fv-row">
                         <label class="form-label fs-6 fw-bold text-dark">Provinsi</label>
@@ -25,7 +52,7 @@
                         </select>
                     </div>
                 </div>
-                @isset($_GET['province_id'])
+                @if (count($regencies) > 0)
                     <div class="col-xl-4">
                         <div class="fv-row">
                             <label class="form-label fs-6 fw-bold text-dark">Kota/Kabupaten</label>
@@ -44,8 +71,8 @@
                             </select>
                         </div>
                     </div>
-                @endisset
-                @isset($_GET['regency_id'])
+                @endif
+                @if (count($districts) > 0)
                     <div class="col-xl-4">
                         <div class="fv-row">
                             <label class="form-label fs-6 fw-bold text-dark">Kecamatan</label>
@@ -63,19 +90,42 @@
                             </select>
                         </div>
                     </div>
-                @endisset
+                @endif
             </div>
         </div>
     </form>
+    @if (isset($_GET['q']) || isset($_GET['category']))
+        <div class="card bg-body mb-10">
+            <div class="card-body">
+                <ul>
+                    @if ($_GET['q'])
+                        <li>
+                            Menampilkan usaha katering yang menyediakan makanan dengan kata kunci
+                            <strong>"{{ $_GET['q'] }}"</strong>.
+                        </li>
+                    @endif
+                    @if ($_GET['category'])
+                        <li>
+                            Menampilkan usaha katering yang menyediakan makanan dari kategori terpilih.
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    @endif
     <div class="row">
         @forelse ($merchants as $merchant)
             <div class="col-xl-6">
                 <div class="card bg-body">
                     <div class="card-body">
-                        <h2 class="mb-5">{{ $merchant->name }}</h2>
+                        <h2 class="mb-3">{{ $merchant->name }}</h2>
+                        <div class="mb-10">
+                            <i>
+                                {{ $merchant->user->address }}, {{ $merchant->user->district->name }},
+                                {{ $merchant->user->regency->name }}, {{ $merchant->user->province->name }}
+                            </i>
+                        </div>
                         <p>{{ $merchant->description }}</p>
-                    </div>
-                    <div class="card-footer">
                         <a href="{{ url('/my-order/create/merchant/' . $merchant->id) }}" class="btn btn-primary btn-sm">
                             LIHAT SELENGKAPNYA
                         </a>

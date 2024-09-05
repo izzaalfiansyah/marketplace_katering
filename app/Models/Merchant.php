@@ -14,4 +14,9 @@ class Merchant extends Model
         'name',
         'description',
     ];
+
+    function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

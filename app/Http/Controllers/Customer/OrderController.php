@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\District;
 use App\Models\Menu;
+use App\Models\MenuCategory;
 use App\Models\Merchant;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -32,11 +33,20 @@ class OrderController extends Controller
 
     function create(Request $req)
     {
-        $builder = Merchant::select('merchants.*')->leftJoin('users', 'users.id', '=', 'merchants.user_id');
+        $builder = Merchant::select('merchants.*')->leftJoin('users', 'users.id', '=', 'merchants.user_id')->leftJoin('menus', 'menus.merchant_id', '=', 'merchants.id');
 
         $provinces = Province::orderBy('name')->get();
         $regencies = [];
         $districts = [];
+        $categories = MenuCategory::all();
+
+        if ($q = $req->q) {
+            $builder = $builder->where('menus.name', 'like', "%$q%");
+        }
+
+        if ($req->category) {
+            $builder = $builder->where('menus.category_id', $req->category);
+        }
 
         if ($req->province_id) {
             $regencies = Regency::where('province_id', $req->province_id)->orderBy('name')->get();
@@ -57,7 +67,7 @@ class OrderController extends Controller
 
         $merchants = $builder->paginate(20);
 
-        return view('customer.order.create', compact('merchants', 'provinces', 'regencies', 'districts'));
+        return view('customer.order.create', compact('merchants', 'provinces', 'regencies', 'districts', 'categories'));
     }
 
     function createByMerchant(Request $req, $merchantId)
