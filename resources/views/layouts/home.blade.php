@@ -155,11 +155,6 @@
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
-                                    <div class="menu-item px-5">
-                                        <a href="{{ url('/order') }}" class="menu-link px-5">
-                                            <span class="menu-text">Pesanan Saya</span>
-                                        </a>
-                                    </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu separator-->
                                     <div class="separator my-2"></div>
@@ -225,6 +220,10 @@
                                             [
                                                 'path' => '/order',
                                                 'title' => 'Daftar Orderan',
+                                            ],
+                                            [
+                                                'path' => '/katering',
+                                                'title' => 'Katering Saya',
                                             ],
                                             [
                                                 'path' => '/profile',

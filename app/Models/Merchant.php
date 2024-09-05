@@ -13,8 +13,5 @@ class Merchant extends Model
         'user_id',
         'name',
         'description',
-        'province_id',
-        'regency_id',
-        'district_id',
     ];
 }

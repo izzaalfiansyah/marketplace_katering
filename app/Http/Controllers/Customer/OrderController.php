@@ -32,7 +32,7 @@ class OrderController extends Controller
 
     function create(Request $req)
     {
-        $builder = new Merchant();
+        $builder = Merchant::select('merchants.*')->leftJoin('users', 'users.id', '=', 'merchants.user_id');
 
         $provinces = Province::orderBy('name')->get();
         $regencies = [];
@@ -41,18 +41,18 @@ class OrderController extends Controller
         if ($req->province_id) {
             $regencies = Regency::where('province_id', $req->province_id)->orderBy('name')->get();
 
-            $builder = $builder->where('province_id', $req->province_id);
+            $builder = $builder->where('users.province_id', $req->province_id);
         }
 
         if ($req->regency_id) {
             // return $req->regency_id;
             $districts = District::where('regency_id', $req->regency_id)->orderBy('name')->get();
 
-            $builder = $builder->where('regency_id', $req->regency_id);
+            $builder = $builder->where('users.regency_id', $req->regency_id);
         }
 
         if ($req->district_id) {
-            $builder = $builder->where('district_id', $req->district_id);
+            $builder = $builder->where('users.district_id', $req->district_id);
         }
 
         $merchants = $builder->paginate(20);
@@ -142,6 +142,6 @@ class OrderController extends Controller
 
         Order::find($id)->update($data);
 
-        return redirect('/my-order/' . $id);
+        return redirect('/my-order/' . $id)->with('success', 'Pesanan dibatalkan!');;
     }
 }
