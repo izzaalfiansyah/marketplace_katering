@@ -43,6 +43,7 @@ class CreateNewUser implements CreatesNewUsers
         if ($input['role'] == 'merchant') {
             Merchant::create([
                 'user_id' => $user->id,
+                'name' => "Katering " . $user->name
             ]);
         }
 

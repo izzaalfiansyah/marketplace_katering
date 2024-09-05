@@ -94,7 +94,7 @@
                             </div>
                         </div>
                     @endisset
-                    @isset($_GET['regency_id'])
+                    @isset($user->regency_id)
                         <div class="col-xl-4">
                             <div class="fv-row mb-7">
                                 <label class="form-label fs-6 fw-bold text-dark">Kecamatan</label>

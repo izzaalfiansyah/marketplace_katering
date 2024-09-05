@@ -14,6 +14,10 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/home', function () {
+    return redirect('/login');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/my-order/create/merchant/{merchantId}', [OrderController::class, 'createByMerchant']);
