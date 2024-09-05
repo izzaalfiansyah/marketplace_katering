@@ -28,9 +28,17 @@
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+    <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime/preset-uno.global.js"></script>
     <script>
-        // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }
+        window.__unocss = {
+            presets: [
+                () => window.__unocss_runtime.presets.presetUno({
+                    prefix: 'un-'
+                }),
+            ],
+        }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime/core.global.js"></script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -265,6 +273,11 @@
                                                 <!--end::Title-->
                                             </div>
                                             <!--end::Page title-->
+                                            <!--begin::Actions-->
+                                            <div class="d-flex align-items-center gap-3 gap-lg-5">
+                                                @yield('actions')
+                                            </div>
+                                            <!--end::Actions-->
                                         </div>
                                         <!--end::Toolbar wrapper-->
                                     </div>
@@ -338,6 +351,17 @@
     <!--begin::Vendors Javascript(used for this page only)-->
     <script src="assets/plugins/custom/fslightbox/fslightbox.bundle.js"></script>
     <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                title: 'Sukses!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+            })
+        </script>
+    @endif
     <!--end::Vendors Javascript-->
     <!--end::Javascript-->
 </body>

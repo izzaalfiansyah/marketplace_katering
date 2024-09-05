@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('menu_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('merchant_id');
-            $table->text('description')->nullable();
-            $table->integer('price');
-            $table->string('photo')->nullable();
-            $table->timestamps();
         });
     }
 
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('menu_categories');
     }
 };

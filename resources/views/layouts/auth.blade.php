@@ -47,9 +47,6 @@ License: For each use you must have a valid license purchased only from above li
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime/core.global.js"></script>
     <!--end::Global Stylesheets Bundle-->
-    <script>
-        // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }
-    </script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
