@@ -33,20 +33,22 @@ class OrderController extends Controller
 
     function create(Request $req)
     {
-        $builder = Merchant::select('merchants.*')->leftJoin('users', 'users.id', '=', 'merchants.user_id')->leftJoin('menus', 'menus.merchant_id', '=', 'merchants.id');
+        $subbuilder = new Menu();
+
+        if ($q = $req->q) {
+            $subbuilder = $subbuilder->where('menus.name', 'like', "%$q%");
+        }
+
+        if ($req->category) {
+            $subbuilder = $subbuilder->where('menus.category_id', $req->category);
+        }
+
+        $builder = Merchant::select('merchants.*')->distinct()->leftJoin('users', 'users.id', '=', 'merchants.user_id')->leftJoin('menus', 'menus.merchant_id', '=', 'merchants.id');
 
         $provinces = Province::orderBy('name')->get();
         $regencies = [];
         $districts = [];
         $categories = MenuCategory::all();
-
-        if ($q = $req->q) {
-            $builder = $builder->where('menus.name', 'like', "%$q%");
-        }
-
-        if ($req->category) {
-            $builder = $builder->where('menus.category_id', $req->category);
-        }
 
         if ($req->province_id) {
             $regencies = Regency::where('province_id', $req->province_id)->orderBy('name')->get();
