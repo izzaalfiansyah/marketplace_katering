@@ -13,9 +13,21 @@ use Nette\Utils\Random;
 
 class MenuController extends Controller
 {
-    function index()
+    function index(Request $req)
     {
-        $menus = Menu::where('merchant_id', Auth::user()->merchant->id)->paginate(10);
+        $builder = Menu::where('merchant_id', Auth::user()->merchant->id);
+
+        if ($q = $req->q) {
+            $builder = $builder->where(function ($query) use ($q) {
+                return $query->where('name', 'like', "%$q%");
+            });
+        }
+
+        if ($req->category) {
+            $builder = $builder->where('category_id', $req->category);
+        }
+
+        $menus = $builder->paginate(10);
         $categories = MenuCategory::all();
 
         return view('merchant.menu.index', compact('menus', 'categories'));

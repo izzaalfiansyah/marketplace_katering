@@ -8,11 +8,46 @@
 @endsection
 
 @section('content')
+    <form class="card bg-body mb-10" id="form-filter">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-8 mb-7">
+                    <div class="fv-row">
+                        <label class="form-label fs-6 fw-bold text-dark">Cari</label>
+                        <input class="form-control form-control-lg form-control-solid" name="q"
+                            placeholder="Ketikkan Sesuatu" value="{{ isset($_GET['q']) ? $_GET['q'] : '' }}"
+                            onchange="{
+                        document.querySelector('#form-filter').submit();
+                    }" />
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="fv-row">
+                        <label class="form-label fs-6 fw-bold text-dark">Jenis</label>
+                        <select
+                            onchange="{
+                        document.querySelector('#form-filter').submit();
+                    }"
+                            class="form-control form-control-lg form-control-solid" name="category" required>
+                            <option value="">Semua Jenis</option>
+                            @foreach ($categories as $category)
+                                <option
+                                    {{ isset($_GET['category']) ? ($_GET['category'] == $category->id ? 'selected' : '') : '' }}
+                                    value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
     <div class="row">
         @forelse ($menus as $menu)
             <div class="col-lg-3 col-md-4 col-6">
                 <div class="card bg-body">
-                    <img src="{{ $menu->photo_url }}" alt="" class="!un-h-200px card-img" style="object-fit: cover" />
+                    <img src="{{ $menu->photo_url }}" alt="" class="!un-h-200px card-img"
+                        style="object-fit: cover" />
                     <div class="card-body">
                         <div class="card-title">{{ $menu->name }}</div>
                         <div class="mt-2">Rp. {{ number_format($menu->price) }}</div>
